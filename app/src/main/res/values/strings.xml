@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TwitterDemo</string>
+    <string name="action_home">Home</string>
+    <string name="action_search">Search</string>
+    <string name="action_notification">Notifications</string>
+    <string name="action_mail">Messages</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="hello_first_fragment">Home fragment</string>
+    <string name="hello_search_fragment">Hello Search fragment</string>
+    <string name="following">Following</string>
+    <string name="for_you">For You</string>
+    <string name="notifications_fragment">Notifications Fragment</string>
+</resources>

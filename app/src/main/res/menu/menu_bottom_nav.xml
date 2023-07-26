@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.twitterdemo.MainActivity">
+    <item
+        android:id="@+id/homePage"
+        android:title="@string/action_home"
+        android:icon="@drawable/baseline_home_24" />
+
+    <item
+        android:id="@+id/search"
+        android:title="@string/action_search"
+        android:icon="@drawable/baseline_search_24" />
+
+    <item
+        android:id="@+id/notifications"
+        android:title="@string/action_notification"
+        android:icon="@drawable/baseline_notifications_24" />
+
+    <item
+        android:id="@+id/message"
+        android:title="@string/action_mail"
+        android:icon="@drawable/baseline_mail_outline_24" />
+</menu>
