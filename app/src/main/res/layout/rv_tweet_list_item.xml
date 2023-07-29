@@ -1,6 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="8dp">
 
-</RelativeLayout>
+    <!-- Profile Picture -->
+    <ImageView
+        android:id="@+id/imageViewProfilePicture"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/circle_shape"
+        android:layout_margin="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/profile_picture"
+        android:layout_marginEnd="8dp"/>
+
+    <!-- User Name -->
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="John Doe"
+        android:textSize="16sp"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/imageViewProfilePicture"
+        app:layout_constraintTop_toTopOf="@id/imageViewProfilePicture"
+        android:layout_marginEnd="8dp"/>
+
+    <!-- User Handle -->
+    <TextView
+        android:id="@+id/tvUserHandle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="John Doe"
+        android:layout_marginStart="12dp"
+        android:textSize="14sp"
+        android:textColor="@color/material_on_background_disabled"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvUserName"
+        app:layout_constraintStart_toEndOf="@id/tvUserName"/>
+
+    <TextView
+        android:id="@+id/tvTimeStamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Jul 17"
+        android:layout_marginStart="12dp"
+        android:textSize="14sp"
+        android:textColor="@color/material_on_background_disabled"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvUserHandle"
+        app:layout_constraintStart_toEndOf="@id/tvUserHandle"/>
+
+    <!-- Tweet Description -->
+    <TextView
+        android:id="@+id/tvTweetDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="This is a sample tweet description."
+        android:textSize="16sp"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/imageViewProfilePicture"
+        app:layout_constraintTop_toBottomOf="@id/tvUserName"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Actions (Comment, Retweet, Likes, Views, Share) -->
+    <LinearLayout
+        android:id="@+id/linearLayoutActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintStart_toEndOf="@id/imageViewProfilePicture"
+        app:layout_constraintTop_toBottomOf="@id/tvTweetDescription"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp">
+
+        <!-- Comment -->
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="24dp"
+            android:src="@drawable/baseline_comment_bank_24"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Retweet -->
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="24dp"
+            android:src="@drawable/baseline_autorenew_24"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Likes -->
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="24dp"
+            android:src="@drawable/baseline_favorite_border_24"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Views -->
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="24dp"
+            android:src="@drawable/baseline_view_week_24"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Share -->
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="24dp"
+            android:src="@drawable/baseline_share_24"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

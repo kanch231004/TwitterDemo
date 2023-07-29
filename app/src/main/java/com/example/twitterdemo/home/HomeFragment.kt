@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.example.twitterdemo.databinding.FragmentHomeBinding
+import com.example.twitterdemo.home.configs.FOLLOWING_FRAGMENT_POSITION
+import com.example.twitterdemo.home.configs.FOR_YOU_POSITION
+import com.example.twitterdemo.home.configs.getTabByPosition
 import com.example.twitterdemo.home.homeViewPager.HomePageVPAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -15,11 +18,9 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var hpVPAdapter: HomePageVPAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,8 +39,7 @@ class HomeFragment : Fragment() {
     private fun setupTabLayouts() {
         TabLayoutMediator(binding.tabLayoutHP, binding.viewPager) {
             tab, position ->
-            tab.text = if (position == 0) "For You" else "Following"
-
+            tab.text = getTabByPosition(position, activity?.baseContext)
         }.attach()
     }
 
@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 when(position) {
-                    0, 1 -> binding.tabLayoutHP.getTabAt(position)?.select()
+                    FOR_YOU_POSITION, FOLLOWING_FRAGMENT_POSITION -> binding.tabLayoutHP.getTabAt(position)?.select()
                 }
                 super.onPageSelected(position)
             }

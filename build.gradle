@@ -2,6 +2,7 @@
 buildscript {
     ext {
         hiltVersion = '2.44'
+        pagingVersion = "3.1.1"
     }
 }
 
