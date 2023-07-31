@@ -6,7 +6,9 @@ import com.example.twitterdemo.databinding.ActivityMainBinding
 import com.example.twitterdemo.home.HomeFragment
 import com.example.twitterdemo.notifications.NotificationsFragment
 import com.example.twitterdemo.search.SearchFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
