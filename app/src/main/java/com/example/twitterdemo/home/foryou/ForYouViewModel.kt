@@ -1,7 +1,5 @@
 package com.example.twitterdemo.home.foryou
 
-import android.provider.Contacts.Intents.UI
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

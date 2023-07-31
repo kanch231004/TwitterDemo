@@ -11,4 +11,9 @@
     <string name="for_you">For You</string>
     <string name="notifications_fragment">Notifications Fragment</string>
     <string name="profile_picture">Profile Picture</string>
+    <string name="comments">comments</string>
+    <string name="retweets">retweets</string>
+    <string name="likes">likes</string>
+    <string name="share">share</string>
+    <string name="views">views</string>
 </resources>

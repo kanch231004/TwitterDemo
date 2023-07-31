@@ -20,8 +20,13 @@ class ForYouListAdapter : ListAdapter<TweetModel, ForYouListAdapter.ForYouItemVi
                 tvUserName.text = tweetModel.user.name
                 tvTimeStamp.text = tweetModel.postedAt
                 tvTweetDescription.text = tweetModel.content
+                tvComments.text = tweetModel.action.comments
+                tvLikes.text = tweetModel.action.likes
+                tvRetweet.text = tweetModel.action.reposts
+                tvViews.text = tweetModel.action.views
                 Glide.with(binding.root.context).load(tweetModel.profileIcon).into(binding.imageViewProfilePicture)
             }
+
         }
     }
 

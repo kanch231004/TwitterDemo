@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- All size units needs to go in dimens.xml resource file
+ This whole layout can be a custom view if this could be used at multiple place -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:padding="8dp">
 
     <!-- Profile Picture -->
@@ -11,116 +13,171 @@
         android:id="@+id/imageViewProfilePicture"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:scaleType="centerCrop"
-        android:background="@drawable/circle_shape"
         android:layout_margin="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/circle_shape"
         android:contentDescription="@string/profile_picture"
-        android:layout_marginEnd="8dp"/>
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- User Name -->
     <TextView
         android:id="@+id/tvUserName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="John Doe"
-        android:textSize="16sp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
         android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/imageViewProfilePicture"
         app:layout_constraintTop_toTopOf="@id/imageViewProfilePicture"
-        android:layout_marginEnd="8dp"/>
+        tools:text="John Doe" />
 
     <!-- User Handle -->
     <TextView
         android:id="@+id/tvUserHandle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="John Doe"
         android:layout_marginStart="12dp"
-        android:textSize="14sp"
         android:textColor="@color/material_on_background_disabled"
+        android:textSize="14sp"
         app:layout_constraintBaseline_toBaselineOf="@id/tvUserName"
-        app:layout_constraintStart_toEndOf="@id/tvUserName"/>
+        app:layout_constraintStart_toEndOf="@id/tvUserName"
+        tools:text="John Doe" />
 
     <TextView
         android:id="@+id/tvTimeStamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Jul 17"
         android:layout_marginStart="12dp"
-        android:textSize="14sp"
         android:textColor="@color/material_on_background_disabled"
+        android:textSize="14sp"
         app:layout_constraintBaseline_toBaselineOf="@id/tvUserHandle"
-        app:layout_constraintStart_toEndOf="@id/tvUserHandle"/>
+        app:layout_constraintStart_toEndOf="@id/tvUserHandle"
+        tools:text="Jul 17" />
 
     <!-- Tweet Description -->
     <TextView
         android:id="@+id/tvTweetDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="This is a sample tweet description."
-        android:textSize="16sp"
         android:layout_marginStart="8dp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/imageViewProfilePicture"
-        app:layout_constraintTop_toBottomOf="@id/tvUserName"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageViewProfilePicture"
+        app:layout_constraintTop_toBottomOf="@id/tvUserName"
+        tools:text="This is a sample tweet description." />
 
     <!-- Actions (Comment, Retweet, Likes, Views, Share) -->
     <LinearLayout
         android:id="@+id/linearLayoutActions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        app:layout_constraintStart_toEndOf="@id/imageViewProfilePicture"
-        app:layout_constraintTop_toBottomOf="@id/tvTweetDescription"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginEnd="12dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@id/imageViewProfilePicture"
+        app:layout_constraintTop_toBottomOf="@id/tvTweetDescription">
 
-        <!-- Comment -->
-        <ImageView
+        <!-- Comment; TextView with drawable start can be used -->
+        <LinearLayout
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="24dp"
-            android:src="@drawable/baseline_comment_bank_24"
-            android:layout_marginEnd="8dp"/>
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/action_icon_size"
+                android:layout_height="@dimen/action_icon_size"
+                android:layout_marginEnd="4dp"
+                android:contentDescription="@string/comments"
+                android:src="@drawable/baseline_comment_bank_24" />
+
+            <TextView
+                android:id="@+id/tvComments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp" />
+        </LinearLayout>
 
         <!-- Retweet -->
-        <ImageView
+        <LinearLayout
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="24dp"
-            android:src="@drawable/baseline_autorenew_24"
-            android:layout_marginEnd="8dp"/>
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/action_icon_size"
+                android:layout_height="@dimen/action_icon_size"
+                android:layout_marginEnd="4dp"
+                android:contentDescription="@string/retweets"
+                android:src="@drawable/baseline_autorenew_24" />
+
+            <TextView
+                android:id="@+id/tvRetweet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp" />
+        </LinearLayout>
 
         <!-- Likes -->
-        <ImageView
+        <LinearLayout
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="24dp"
-            android:src="@drawable/baseline_favorite_border_24"
-            android:layout_marginEnd="8dp"/>
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/action_icon_size"
+                android:layout_height="@dimen/action_icon_size"
+                android:layout_marginEnd="4dp"
+                android:contentDescription="@string/likes"
+                android:src="@drawable/baseline_favorite_border_24" />
+
+            <TextView
+                android:id="@+id/tvLikes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp" />
+        </LinearLayout>
 
         <!-- Views -->
-        <ImageView
+        <LinearLayout
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="24dp"
-            android:src="@drawable/baseline_view_week_24"
-            android:layout_marginEnd="8dp"/>
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/action_icon_size"
+                android:layout_height="@dimen/action_icon_size"
+                android:layout_marginEnd="4dp"
+                android:contentDescription="@string/views"
+                android:src="@drawable/baseline_view_week_24" />
+
+            <TextView
+                android:id="@+id/tvViews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp" />
+        </LinearLayout>
 
         <!-- Share -->
         <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/baseline_share_24"/>
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@string/share"
+            android:src="@drawable/baseline_share_24" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
