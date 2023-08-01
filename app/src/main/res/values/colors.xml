@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="icon_grey">#6c7882</color>
+    <color name="user_handle_color">#156B9F</color>
 </resources>
