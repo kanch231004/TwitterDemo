@@ -9,20 +9,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.twitterdemo.data.TweetModel
 import com.example.twitterdemo.databinding.RvTweetListItemBinding
+import com.example.twitterdemo.home.configs.convertToReadableFormat
 
 class ForYouListAdapter : ListAdapter<TweetModel, ForYouListAdapter.ForYouItemViewHolder>(TweetListDiffCallback()){
 
     class ForYouItemViewHolder(private val binding: RvTweetListItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(tweetModel: TweetModel) {
             binding.apply {
-                Log.d("Answer", "bind: username ${tweetModel.user.handle}")
                 tvUserHandle.text = tweetModel.user.handle
                 tvUserName.text = tweetModel.user.name
-                tvTimeStamp.text = tweetModel.postedAt
+                tvTimeStamp.text = convertToReadableFormat(tweetModel.postedAt)
                 tvTweetDescription.text = tweetModel.content
                 tvComments.text = tweetModel.action.comments
-                tvLikes.text = tweetModel.action.likes
-                tvRetweet.text = tweetModel.action.reposts
+                tvLikes.text = tweetModel.action.likes.toString()
+                tvRetweet.text = tweetModel.action.reposts.toString()
                 tvViews.text = tweetModel.action.views
                 Glide.with(binding.root.context).load(tweetModel.profileIcon).into(binding.imageViewProfilePicture)
             }

@@ -12,9 +12,11 @@ data class User(
     @SerializedName("name") var name: String?,
     @SerializedName("handle") var handle: String
 )
+
+//All numbers can be Int from server itself including views and can be parsed to redable format
 data class Action(
-    @SerializedName("comments") val comments: String, @SerializedName("reposts") val reposts: String,
-    @SerializedName("likes") var likes: String, @SerializedName("views") var views: String
+    @SerializedName("comments") val comments: String, @SerializedName("reposts") val reposts: Int,
+    @SerializedName("likes") var likes: Int, @SerializedName("views") var views: String
 )
 data class TweetResponse(
     @SerializedName("totalResults") var totalResults: Int,
