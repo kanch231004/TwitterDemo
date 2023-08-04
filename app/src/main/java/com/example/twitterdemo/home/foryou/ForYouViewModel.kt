@@ -1,44 +1,36 @@
 package com.example.twitterdemo.home.foryou
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.twitterdemo.data.TweetModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
 class ForYouViewModel @Inject constructor(private val forYouTweetRepository: ForYouTweetRepository) : ViewModel() {
-    val tweetResultLiveData: MutableLiveData<UIState> by lazy { MutableLiveData<UIState>() }
-    private var tweetList = ArrayList<TweetModel>()
-    fun getForYouTweetDetails() {
-        if (tweetList.isEmpty()) {
-            viewModelScope.launch {
-                try {
-                    tweetResultLiveData.postValue(UIState.Loading)
-                    forYouTweetRepository.getForYouTweetDetails()
-                        .catch {
-                            tweetResultLiveData.postValue(UIState.Error(it.message))
-                        }.collect {
-                            tweetResponse ->
-                            tweetList = tweetResponse.posts
-                            tweetResultLiveData.postValue(UIState.TweetsLoaded(tweetList))
-                        }
-                } catch (e: Exception) {
-                    tweetResultLiveData.postValue(UIState.Error(e.message))
-                }
+    private var tweetData : PagedData? = null
+    private var fetchTweetJob: Job? = null
+
+    fun getTweetData(): PagedData? {
+        if (tweetData == null) {
+            fetchTweetJob =  viewModelScope.launch {
+                tweetData = PagedData(
+                    forYouTweetRepository.getForYouTweetDetails().cachedIn(viewModelScope)
+                )
             }
-        } else {
-            tweetResultLiveData.postValue(UIState.TweetsLoaded(tweetList))
         }
+        return tweetData
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        fetchTweetJob = null
     }
 }
 
-sealed class UIState {
-    object Loading : UIState()
-    data class  TweetsLoaded(val data : ArrayList<TweetModel>) : UIState()
-    data class Error(var message: String?) : UIState()
-}
+data class PagedData(var pagingDataFlow: Flow<PagingData<TweetModel>>)

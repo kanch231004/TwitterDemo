@@ -6,6 +6,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 object RetrofitFactory {
     private val okHttpClient =  OkHttpClient.Builder().addNetworkInterceptor(
@@ -24,6 +25,6 @@ object RetrofitFactory {
 }
 
 interface TwitterService {
-    @GET("/v3/fa23366d-eab0-445f-b2e4-fe857c1d21f0")
-    suspend fun getForYouDetailTweets(): TweetResponse
+    @GET("/v3/{pageId}")
+    suspend fun getForYouDetailTweets(@Path("pageId") page: String?): TweetResponse
 }

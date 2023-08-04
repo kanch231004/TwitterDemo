@@ -1,19 +1,25 @@
 package com.example.twitterdemo.home.foryou
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.twitterdemo.api.TwitterService
-import com.example.twitterdemo.data.TweetResponse
-import kotlinx.coroutines.Dispatchers
+import com.example.twitterdemo.data.TweetModel
+import com.example.twitterdemo.home.foryou.paging.FeedDataSource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
+// Should be in pageConfigUtils
+const val PAGE_SIZE = 20
+const val PREFETCH_DISTANCE = 3
+
 class ForYouTweetRepoImpl @Inject constructor(private val twitterService: TwitterService): ForYouTweetRepository {
-    override suspend fun getForYouTweetDetails(): Flow<TweetResponse> {
-        return flowOf(twitterService.getForYouDetailTweets()).flowOn(Dispatchers.IO)
-    }
+    override suspend fun getForYouTweetDetails(): Flow<PagingData<TweetModel>> = Pager(
+        config = PagingConfig(pageSize = PAGE_SIZE, prefetchDistance = PREFETCH_DISTANCE),
+        pagingSourceFactory = { FeedDataSource(twitterService) }
+    ).flow
 }
 
 interface ForYouTweetRepository {
-    suspend fun getForYouTweetDetails(): Flow<TweetResponse>
+    suspend fun getForYouTweetDetails():Flow<PagingData<TweetModel>>
 }

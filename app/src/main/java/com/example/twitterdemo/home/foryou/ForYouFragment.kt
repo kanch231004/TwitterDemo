@@ -7,8 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.example.twitterdemo.R
 import com.example.twitterdemo.databinding.FragmentForYouBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ForYouFragment : Fragment() {
@@ -32,27 +37,28 @@ class ForYouFragment : Fragment() {
         binding.apply {
             rvTweet.adapter = tweetAdapter
         }
+
         subscribeUI()
-        forYouViewModel.getForYouTweetDetails()
     }
 
     private fun subscribeUI() {
-        forYouViewModel.tweetResultLiveData.observe(viewLifecycleOwner) {uiState ->
-            when (uiState) {
-                is UIState.Loading -> {
-                    //show progress bar
-                }
-                is UIState.TweetsLoaded -> {
-                    tweetAdapter.submitList(uiState.data)
-                }
-                is UIState.Error -> {
-                    Toast.makeText(context, "error ${uiState.message}", Toast.LENGTH_LONG).show()
-                }
+        val pageData = forYouViewModel.getTweetData()
+        lifecycleScope.launch {
+            pageData?.pagingDataFlow?.catch {
+                showErrorMessage()
+            }?.
+            collectLatest {
+                tweetAdapter.submitData(it)
             }
         }
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
+    }
+
+    private fun showErrorMessage()  {
+        //Show specific error message as per requirement, this is only for demonstration
+        Toast.makeText(context, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
     }
 }
