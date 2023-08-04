@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.twitterdemo.databinding.FragmentForYouBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ForYouFragment : Fragment() {
@@ -32,27 +34,20 @@ class ForYouFragment : Fragment() {
         binding.apply {
             rvTweet.adapter = tweetAdapter
         }
+
         subscribeUI()
-        forYouViewModel.getForYouTweetDetails()
     }
 
     private fun subscribeUI() {
-        forYouViewModel.tweetResultLiveData.observe(viewLifecycleOwner) {uiState ->
-            when (uiState) {
-                is UIState.Loading -> {
-                    //show progress bar
-                }
-                is UIState.TweetsLoaded -> {
-                    tweetAdapter.submitList(uiState.data)
-                }
-                is UIState.Error -> {
-                    Toast.makeText(context, "error ${uiState.message}", Toast.LENGTH_LONG).show()
-                }
+        val pageData = forYouViewModel.getTweetData()
+        lifecycleScope.launch {
+            pageData?.liveData?.collectLatest {
+                tweetAdapter.submitData(it)
             }
         }
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 }

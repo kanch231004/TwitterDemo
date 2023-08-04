@@ -19,6 +19,13 @@ data class Action(
     @SerializedName("likes") var likes: Int, @SerializedName("views") var views: String
 )
 data class TweetResponse(
-    @SerializedName("totalResults") var totalResults: Int,
+    @SerializedName("pageInfo") val pageInfo: PageInfo,
     @SerializedName("posts") var posts: ArrayList<TweetModel>
+)
+
+data class PageInfo(
+    @SerializedName("count") val count: Int,
+    @SerializedName("page") val page: Int,
+    @SerializedName("nextPageUrl") val next: String?,
+    @SerializedName("prevPageUrl") val prev: String?
 )
