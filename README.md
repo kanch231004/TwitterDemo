@@ -1,10 +1,13 @@
 # TwitterDemo
-App demonstrating Clean Architecture using Coroutines and Android Jetpack Components (Room, MVVM Paging, Flow and Live Data)
-JSON response hosted here https://run.mocky.io/v3/fa23366d-eab0-445f-b2e4-fe857c1d21f0
+App demonstrating Clean Architecture using Coroutines and Android Jetpack Components (Room, MVVM Paging, Flow and Live Data)JSON response hosted here
+
+Page 1 https://run.mocky.io/v3/1c8135b7-cd6c-4411-afab-aa2a0f481b91
+
+Page 2 https://run.mocky.io/v3/31ad70ac-f637-4135-bebf-a292a739a8c7
 
 # ScreenShots
 
-<img src = "https://github.com/kanch231004/TwitterDemo/blob/master/screenshots/ForYouFeed.png" width = 260 height = 550/>
+<img src = "https://github.com/kanch231004/TwitterDemo/blob/master/screenshots/HomePage.png" width = 260 height = 550/>
 
 # Tech-Stack
 
@@ -17,6 +20,6 @@ JSON response hosted here https://run.mocky.io/v3/fa23366d-eab0-445f-b2e4-fe857c
 * __Language__ : Kotlin
 
 # Architecture Diagram
-This application strictly follows the below architecture 
+This application strictly follows the below architecture.
 
-<img src = "https://github.com/kanch231004/News-Feed/blob/master/screenshots/Architecture.png" width = 450 />
+<img src = "https://github.com/kanch231004/TwitterDemo/blob/master/screenshots/Architecture.png" width = 450 />
