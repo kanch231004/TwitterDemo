@@ -5,10 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.example.twitterdemo.R
 import com.example.twitterdemo.databinding.FragmentForYouBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.catch
@@ -20,7 +18,7 @@ class ForYouFragment : Fragment() {
 
     private var _binding: FragmentForYouBinding? = null
     private val binding get() = _binding!!
-    private val forYouViewModel: ForYouViewModel by viewModels()
+    private lateinit var forYouViewModel: ForYouViewModel
     private lateinit var tweetAdapter: ForYouListAdapter
 
     override fun onCreateView(
@@ -33,21 +31,22 @@ class ForYouFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        forYouViewModel = ViewModelProvider(requireActivity())[ForYouViewModel::class.java]
         tweetAdapter = ForYouListAdapter()
         binding.apply {
             rvTweet.adapter = tweetAdapter
         }
-
         subscribeUI()
     }
 
     private fun subscribeUI() {
-        val pageData = forYouViewModel.getTweetData()
         lifecycleScope.launch {
-            pageData?.pagingDataFlow?.catch {
-                showErrorMessage()
+            val pageData = forYouViewModel.getTweetData()
+            pageData?.catch {
+                //handle error here
             }?.
             collectLatest {
+                binding.rvTweet.visibility = View.VISIBLE
                 tweetAdapter.submitData(it)
             }
         }
@@ -55,10 +54,5 @@ class ForYouFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    private fun showErrorMessage()  {
-        //Show specific error message as per requirement, this is only for demonstration
-        Toast.makeText(context, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
     }
 }

@@ -6,31 +6,18 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.twitterdemo.data.TweetModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ForYouViewModel @Inject constructor(private val forYouTweetRepository: ForYouTweetRepository) : ViewModel() {
-    private var tweetData : PagedData? = null
-    private var fetchTweetJob: Job? = null
-
-    fun getTweetData(): PagedData? {
-        if (tweetData == null) {
-            fetchTweetJob =  viewModelScope.launch {
-                tweetData = PagedData(
-                    forYouTweetRepository.getForYouTweetDetails().cachedIn(viewModelScope)
-                )
-            }
+    private var tweetData : Flow<PagingData<TweetModel>>? = null
+    suspend fun getTweetData(): Flow<PagingData<TweetModel>>? {
+        return if (tweetData == null) {
+            tweetData = forYouTweetRepository.getForYouTweetDetails().cachedIn(viewModelScope)
+            tweetData
+        } else {
+            tweetData
         }
-        return tweetData
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        fetchTweetJob = null
     }
 }
-
-data class PagedData(var pagingDataFlow: Flow<PagingData<TweetModel>>)
