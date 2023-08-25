@@ -1,5 +1,6 @@
 package com.example.twitterdemo.home.foryou
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -13,8 +14,9 @@ import javax.inject.Inject
 class ForYouViewModel @Inject constructor(private val forYouTweetRepository: ForYouTweetRepository) : ViewModel() {
     private var tweetData : Flow<PagingData<TweetModel>>? = null
     suspend fun getTweetData(): Flow<PagingData<TweetModel>>? {
+        Log.d("ViewModel", "getTweetData: called")
         return if (tweetData == null) {
-            tweetData = forYouTweetRepository.getForYouTweetDetails().cachedIn(viewModelScope)
+            tweetData = forYouTweetRepository.getForYouTweetDetails()
             tweetData
         } else {
             tweetData
