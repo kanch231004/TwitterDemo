@@ -3,11 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ViewStub
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:visibility="visible"
+        android:layout="@layout/layout_error_page"
+        android:id="@+id/viewStub"/>
+
+    <ViewStub
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:visibility="visible"
+        android:layout="@layout/layout_loader"
+        android:id="@+id/viewStubPb"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTweet"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

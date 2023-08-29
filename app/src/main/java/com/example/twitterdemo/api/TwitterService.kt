@@ -3,6 +3,7 @@ package com.example.twitterdemo.api
 import com.example.twitterdemo.data.TweetResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -26,5 +27,5 @@ object RetrofitFactory {
 
 interface TwitterService {
     @GET("/v3/{pageId}")
-    suspend fun getForYouDetailTweets(@Path("pageId") page: String?): TweetResponse
+    suspend fun getForYouDetailTweets(@Path("pageId") page: String?): Response<TweetResponse>
 }

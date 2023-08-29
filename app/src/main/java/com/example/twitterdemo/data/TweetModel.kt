@@ -1,7 +1,10 @@
 package com.example.twitterdemo.data
 
 import com.google.gson.annotations.SerializedName
+import java.util.UUID
+
 data class TweetModel(
+    var id: String = UUID.randomUUID().toString(),
     @SerializedName("user") var user: User,
     @SerializedName("postedAt") var postedAt: String,
     @SerializedName("content") var content: String,

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import com.example.twitterdemo.databinding.FragmentForYouBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.catch
@@ -36,17 +37,45 @@ class ForYouFragment : Fragment() {
         binding.apply {
             rvTweet.adapter = tweetAdapter
         }
+        listenLoadingState()
         subscribeUI()
+    }
+
+    private fun listenLoadingState() {
+        tweetAdapter.addLoadStateListener { loadState ->
+            binding.apply {
+
+                when (loadState.refresh) {
+                    is LoadState.Loading -> {
+                        viewStubPb.visibility = View.VISIBLE
+                        viewStub.visibility = View.GONE
+                    }
+
+                    is LoadState.NotLoading -> {
+                        viewStubPb.visibility = View.GONE
+                    }
+
+                    is LoadState.Error -> {
+                        viewStub.visibility = View.VISIBLE
+                        viewStubPb.visibility = View.GONE
+                    }
+
+                    else -> { // Do nothing}
+                    }
+                }
+            }
+        }
     }
 
     private fun subscribeUI() {
         lifecycleScope.launch {
-            val pageData = forYouViewModel.getTweetData()
-            pageData?.catch {
-                //handle error here
-            }?.
+            val pageData = forYouViewModel.tweetFlow
+            pageData.catch {
+                binding.viewStub.visibility = View.VISIBLE
+            }.
             collectLatest {
                 binding.rvTweet.visibility = View.VISIBLE
+                binding.viewStubPb.visibility = View.GONE
                 tweetAdapter.submitData(it)
             }
         }

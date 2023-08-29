@@ -41,7 +41,7 @@ class ForYouListAdapter : PagingDataAdapter<TweetModel, ForYouListAdapter.ForYou
 
 object TweetListDiffCallback: DiffUtil.ItemCallback<TweetModel>() {
     override fun areItemsTheSame(oldItem: TweetModel, newItem: TweetModel): Boolean {
-        return oldItem.postedAt === newItem.postedAt
+        return oldItem.id === newItem.id
     }
 
     override fun areContentsTheSame(oldItem: TweetModel, newItem: TweetModel): Boolean {

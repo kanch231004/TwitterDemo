@@ -15,15 +15,19 @@ class FeedDataSource @Inject constructor(private val twitterService: TwitterServ
     override suspend fun load(params: LoadParams<String>): LoadResult<String, TweetModel> {
         val pageNumber = params.key ?: INITIAL_PAGE_URL
         return try {
-            val pagedResponse = twitterService.getForYouDetailTweets(pageNumber)
-            val data = pagedResponse.posts
-            val nextPageId = pagedResponse.pageInfo.next
 
-            LoadResult.Page(
-                data = data.orEmpty(),
-                prevKey = null,
-                nextKey = nextPageId
-            )
+            val pagedResponse = twitterService.getForYouDetailTweets(pageNumber)
+            if (pagedResponse.isSuccessful && pagedResponse.body() != null) {
+                val data = pagedResponse.body()?.posts
+                val nextPageId = pagedResponse.body()?.pageInfo?.next
+                LoadResult.Page(
+                    data = data.orEmpty(),
+                    prevKey = null,
+                    nextKey = nextPageId
+                )
+            } else {
+                LoadResult.Error(Throwable("Something Went Wrong"))
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             LoadResult.Error(e)
