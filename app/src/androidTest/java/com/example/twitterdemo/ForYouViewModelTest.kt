@@ -46,7 +46,7 @@ class ForYouViewModelTest {
     @Test
     fun verify_repository_getForYouTweetDetails_is_called_when_viewModel_is_created() {
         testScope.runTest {
-            verify(mockRepository,times(1)).getForYouTweetDetails()
+            verify(mockRepository, times(1)).getForYouTweetDetails()
         }
     }
 }
