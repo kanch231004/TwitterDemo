@@ -1,9 +1,9 @@
 # TwitterDemo
 App demonstrating Clean Architecture using Coroutines and Android Jetpack Components (Room, MVVM Paging, Flow and Live Data)JSON response hosted here
 
-Page 1 https://run.mocky.io/v3/1c8135b7-cd6c-4411-afab-aa2a0f481b91
+Page 1 https://run.mocky.io/v3/7efe9576-a3ce-4db4-96a4-51d4e3f8bc9a
 
-Page 2 https://run.mocky.io/v3/31ad70ac-f637-4135-bebf-a292a739a8c7
+Page 2 https://run.mocky.io/v3/f77579f1-1e99-4e05-a495-478d2067654b
 
 # ScreenShots
 
