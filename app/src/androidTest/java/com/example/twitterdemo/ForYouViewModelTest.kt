@@ -10,6 +10,7 @@ import com.example.twitterdemo.data.TweetModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.resetMain
@@ -45,7 +46,7 @@ class ForYouViewModelTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun verify_repository_getForYouTweetDetails_is_called_when_viewModel_is_created() {
-        testScope.runTest {
+        testScope.backgroundScope.launch {
             verify(mockRepository, times(1)).getForYouTweetDetails()
         }
     }

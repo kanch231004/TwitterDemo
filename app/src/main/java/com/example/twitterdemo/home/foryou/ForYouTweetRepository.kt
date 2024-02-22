@@ -16,8 +16,9 @@ const val PREFETCH_DISTANCE = 3
 class ForYouTweetRepoImpl @Inject constructor(private val twitterService: TwitterService): ForYouTweetRepository {
     override suspend fun getForYouTweetDetails(): Flow<PagingData<TweetModel>> = Pager(
         config = PagingConfig(pageSize = PAGE_SIZE, prefetchDistance = PREFETCH_DISTANCE),
-        pagingSourceFactory = { FeedDataSource(twitterService) }
+        pagingSourceFactory = { FeedDataSource(twitterService)  }
     ).flow
+
 }
 
 interface ForYouTweetRepository {
