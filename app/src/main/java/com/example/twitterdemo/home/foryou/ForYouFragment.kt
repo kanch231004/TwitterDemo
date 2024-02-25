@@ -58,6 +58,10 @@ class ForYouFragment : Fragment() {
                     is LoadState.Error -> {
                         viewStub.visibility = View.VISIBLE
                         viewStubPb.visibility = View.GONE
+                        val error = loadState.refresh as? LoadState.Error
+                        error.let {
+                            viewStub.text = it?.error?.message
+                        }
                     }
 
                     else -> { // Do nothing}

@@ -7,11 +7,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ViewStub
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         tools:visibility="visible"
+        android:text="TestText"
         android:layout="@layout/layout_error_page"
         android:id="@+id/viewStub"/>
 

@@ -7,8 +7,8 @@ import com.example.twitterdemo.data.TweetModel
 import javax.inject.Inject
 
 const val INITIAL_PAGE_URL = "7efe9576-a3ce-4db4-96a4-51d4e3f8bc9a"
-class FeedDataSource @Inject constructor(private val twitterService: TwitterService)
-    : PagingSource<String, TweetModel>() {
+class FeedDataItemSource @Inject constructor(private val twitterService: TwitterService)
+    : FeedDataPagingSource() {
 
     override fun getRefreshKey(state: PagingState<String, TweetModel>): String = INITIAL_PAGE_URL
 
@@ -26,7 +26,8 @@ class FeedDataSource @Inject constructor(private val twitterService: TwitterServ
                     nextKey = nextPageId
                 )
             } else {
-                LoadResult.Error(Throwable("Something Went Wrong"))
+
+                LoadResult.Error(Throwable(pagedResponse.message()))
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -34,3 +35,5 @@ class FeedDataSource @Inject constructor(private val twitterService: TwitterServ
         }
     }
 }
+
+abstract class FeedDataPagingSource : PagingSource<String, TweetModel>()
