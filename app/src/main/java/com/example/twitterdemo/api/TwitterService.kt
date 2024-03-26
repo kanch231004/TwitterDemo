@@ -22,7 +22,7 @@ object RetrofitFactory {
 
     private val retrofit = Retrofit.Builder()
         .client(okHttpClient)
-        .baseUrl("https://run.mocky.io")
+        .baseUrl("https://www.jsonkeeper.com")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -30,7 +30,7 @@ object RetrofitFactory {
 }
 
 interface TwitterService {
-    @GET("/v3/{pageId}")
+    @GET("/b/{pageId}")
     suspend fun getForYouDetailTweets(@Path("pageId") page: String?): Response<TweetResponse>
 }
 
